@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
 
 
@@ -16,6 +17,10 @@ import Link from 'next/link';
  * they also affect the parent elements, e.g. body.
  */
 export const Header = () => <header>
+  <Head>
+    <title>Orange news</title>
+  </Head>
+
   <h1>Orange news site</h1>
   <Link href="/"><a>To frontpage</a></Link>
 
