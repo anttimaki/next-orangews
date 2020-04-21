@@ -2,7 +2,6 @@ import fetch from 'isomorphic-unfetch';
 import {NextPageContext} from 'next'
 import React from 'react'
 
-import {Header} from '../components/Header';
 import {StoryList} from '../components/StoryList';
 
 
@@ -66,9 +65,6 @@ export default class Index extends React.Component<Props, {}> {
   }
 
   render() {
-    return <>
-      <Header />
-      <StoryList stories={this.props.stories} />
-    </>;
+    return <StoryList stories={this.props.stories} />;
   }
 };

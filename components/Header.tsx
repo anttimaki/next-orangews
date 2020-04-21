@@ -1,14 +1,9 @@
 import React from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 
 
 // "Topbar" providing a link to the frontpage.
 export const Header = () => <header>
-  <Head>
-    <title>Orange news</title>
-  </Head>
-
   <h1>Orange news site</h1>
   <Link href="/"><a>To frontpage</a></Link>
 

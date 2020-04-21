@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 
-import {Header} from '../../components/Header';
 import {Time} from '../../components/Time';
 
 
@@ -44,8 +43,6 @@ export default () => {
 
   if (author === null) {
     return <>
-      <Header />
-
       <section>
         <h2>Loading...</h2>
       </section>
@@ -55,8 +52,6 @@ export default () => {
   }
 
   return <>
-    <Header />
-
     <section>
       <h2>{author.id}</h2>
       <dl>
