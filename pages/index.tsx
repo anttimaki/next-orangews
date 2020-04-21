@@ -27,10 +27,10 @@ export default class Index extends React.Component<Props, {}> {
    * getInitialProps is next.js' preferred way of fetching required
    * information. Normally this would be done with componentDidMount (or
    * with useEffect, as I've done on author page for exercise's sake).
-   * 
+   *
    * The benefit is that this way the initial data fetching and
    * rendering is done on the server. Later, if user navigates the pages
-   * of the SPA, data is refressed on the browser. 
+   * of the SPA, data is refressed on the browser.
    */
   static async getInitialProps(ctx: NextPageContext) {
     const url = 'https://hacker-news.firebaseio.com/v0/beststories.json';
