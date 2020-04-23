@@ -71,7 +71,15 @@ export default () => {
 };
 
 
-const Styles = () => <style jsx>
+/**
+ * Next.js documentation says this should be `<style jsx>`, but that
+ * causes a warning, and everything seems to work nicely without the
+ * parameter. The warning states that attribute should have a string
+ * value instead of boolean, but TypeScript only accept boolean or
+ * undefined. When passing a boolean the error persist, and explicitly
+ * passing undefined seems stupid.
+ */
+const Styles = () => <style>
   {`
     section { padding: 0.5rem 1rem; }
 
