@@ -7,10 +7,7 @@ import {Time} from './Time';
 
 export const StoryItem = (props: Story) => <li>
   <h2>
-    {props.url
-      ? <a href={props.url} target='_blank' rel='noopener'>{props.title}</a>
-      : <span className='fake-link'>{props.title}</span>
-    }
+    <a href={getUrl(props)} target='_blank' rel='noopener'>{props.title}</a>
   </h2>
 
   <span className='by'>{'By'}</span>
@@ -56,3 +53,9 @@ export const StoryItem = (props: Story) => <li>
     `}
   </style>
 </li>;
+
+
+// "Ask HN" stories have no URL, point link to comments.
+const getUrl = (story: Story) => typeof story.url === 'undefined'
+  ? `https://news.ycombinator.com/item?id=${story.id}`
+  : story.url;
