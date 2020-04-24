@@ -2,3 +2,11 @@ body {
   margin: 0;
   background-color: #333;
 }
+
+h2#loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  font: normal 24px/1.5 sans-serif;
+  color: #de9a07;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Story} from '../pages/index';
+import {Story} from '../types';
 import {StoryItem} from './StoryItem';
 
 
