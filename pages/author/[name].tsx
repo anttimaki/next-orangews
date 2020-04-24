@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 
-import {Author} from '../../types';
+import {CacheContext} from '../_app';
+import {Author, Cache} from '../../types';
 import {Time} from '../../components/Time';
 
 
@@ -14,8 +15,15 @@ import {Time} from '../../components/Time';
  * this by recommending to use useRouter().
  */
 export default () => {
-  const authorName = useRouter().query.name;
+  // Name has been typed as "string | string[]". My guess is that this
+  // is supposed to accommodate multiple GET paramaters with the same
+  // name. Take an extra step of confirming we have a string so we can
+  // later use "authorName as string" to make TypeScript feel safe.
+  let authorName = useRouter().query.name;
+  authorName = Array.isArray(authorName) ? authorName[0] : authorName;
+
   const [author, setAuthor] = useState<Author|null>(null);
+  const cache: Cache = useContext(CacheContext);
 
   useEffect(() => {
     if (author !== null) {
@@ -27,9 +35,22 @@ export default () => {
     // b) useEffect treats any returned function as a clean-up function
     // that is called when the component unmounts.
     (async () => {
-      const url = `https://hacker-news.firebaseio.com/v0/user/${authorName}.json`;
-      const response = await fetch(url);
-      const authorData = await response.json();
+      let authorData;
+
+      if (typeof cache.authorCache[authorName as string] === 'undefined') {
+        const url = `https://hacker-news.firebaseio.com/v0/user/${authorName}.json`;
+        const response = await fetch(url);
+        authorData = await response.json();
+
+        // Ideally the cache would be updated as callback when the state
+        // has been updated, but hook-state doesn't support this. It's
+        // not likely to cause problems here, since the authors are
+        // fetched one by one.
+        cache.updateAuthorCache(authorData);
+      } else {
+        authorData = cache.authorCache[authorName as string];
+      }
+
       setAuthor(authorData);
     })();
   });

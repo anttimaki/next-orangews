@@ -2,24 +2,20 @@ import App, {AppProps} from 'next/app';
 import Head from 'next/head';
 import React, {createContext} from 'react';
 
-import {Story, StoryCache} from '../types';
+import {Author, Cache, Story} from '../types';
 import {Header} from '../components/Header';
 import '../styles/global.css';
 
 
 export const CacheContext = createContext({
+  'authorCache': {},
   'storyCache': {},
+  'updateAuthorCache': (author: Author) => {},
   'updateStoryCache': (stories: Story[]) => {}
 });
 
 
-interface State {
-  'storyCache': StoryCache;
-  'updateStoryCache': (stories: Story[]) => void;
-};
-
-
-export default class OrangeApp extends App<AppProps, {}, State> {
+export default class OrangeApp extends App<AppProps, {}, Cache> {
   constructor(props: AppProps) {
     super(props);
 
@@ -39,8 +35,18 @@ export default class OrangeApp extends App<AppProps, {}, State> {
       }
     };
 
+    const updateAuthorCache = (author: Author) => {
+      if (typeof this.state.authorCache[author.id] === 'undefined') {
+        const authorCache = {...this.state.authorCache};
+        authorCache[author.id] = author;
+        this.setState({authorCache});
+      }
+    };
+
     this.state = {
+      'authorCache': {},
       'storyCache': {},
+      updateAuthorCache,
       updateStoryCache
     };
   }
