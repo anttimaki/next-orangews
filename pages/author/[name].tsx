@@ -56,13 +56,7 @@ export default () => {
   });
 
   if (author === null) {
-    return <>
-      <section>
-        <h2>Loading...</h2>
-      </section>
-
-      <Styles />
-    </>;
+    return <h2 id='loading'>Loading...</h2>;
   }
 
   return <>
@@ -80,40 +74,29 @@ export default () => {
       </dl>
     </section>
 
-    <Styles />
+    <style jsx>
+      {`
+        section { padding: 0.5rem 1rem; }
+
+        h2 {
+          margin: 0;
+          font: normal 24px/1.5 sans-serif;
+          color: #de9a07;
+        }
+
+        dl {
+          font: normal 14px/1.5 sans-serif;
+          color: #bf9a49;
+          display: flex;
+          flex-flow: row wrap;
+          max-width: 400px;
+        }
+        dt { flex-basis: 40%; }
+        dd {
+          flex-basis: 60%;
+          margin: 0;
+        }
+      `}
+    </style>
   </>;
 };
-
-
-/**
- * Next.js documentation says this should be `<style jsx>`, but that
- * causes a warning, and everything seems to work nicely without the
- * parameter. The warning states that attribute should have a string
- * value instead of boolean, but TypeScript only accept boolean or
- * undefined. When passing a boolean the error persist, and explicitly
- * passing undefined seems stupid.
- */
-const Styles = () => <style>
-  {`
-    section { padding: 0.5rem 1rem; }
-
-    h2 {
-      margin: 0;
-      font: normal 24px/1.5 sans-serif;
-      color: #de9a07;
-    }
-
-    dl {
-      font: normal 14px/1.5 sans-serif;
-      color: #bf9a49;
-      display: flex;
-      flex-flow: row wrap;
-      max-width: 400px;
-    }
-    dt { flex-basis: 40%; }
-    dd {
-      flex-basis: 60%;
-      margin: 0;
-    }
-  `}
-</style>;
