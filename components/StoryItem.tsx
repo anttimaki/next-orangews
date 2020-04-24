@@ -30,8 +30,7 @@ export const StoryItem = (props: Story) => <li>
         color: #de9a07;
       }
 
-      h2 a,
-      h2 .fake-link {
+      h2 a {
         color: #de9a07;
         text-decoration: none;
         font: normal 1.2rem/1.5 sans-serif;
