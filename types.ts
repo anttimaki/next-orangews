@@ -16,3 +16,9 @@ export interface Story {
   'title': string;
   'url': string;
 };
+
+
+// Stories already loaded from API are stored in state.
+export interface StoryCache {
+  [storyId: number]: Story;
+};
