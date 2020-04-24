@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import {Story} from '../pages/index';
+import {Story} from '../types';
 import {Time} from './Time';
 
 

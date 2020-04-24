@@ -2,17 +2,8 @@ import fetch from 'isomorphic-unfetch';
 import {NextPageContext} from 'next'
 import React from 'react'
 
+import {Story} from '../types';
 import {StoryList} from '../components/StoryList';
-
-
-export interface Story {
-  'by': string;
-  'id': number;
-  'score': number;
-  'time': number;
-  'title': string;
-  'url': string;
-};
 
 
 interface Props {

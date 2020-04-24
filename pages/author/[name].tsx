@@ -1,15 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 
+import {Author} from '../../types';
 import {Time} from '../../components/Time';
-
-
-interface Author {
-  'id': string;
-  'karma': number;
-  'created': number;
-  'submitted': number[];
-};
 
 
 /**
