@@ -15,6 +15,14 @@ export const CacheContext = createContext({
 });
 
 
+/**
+ * Regular components have a signature of Component<Props, State>.
+ * App however has a signature of App<P = {}, CP = {}, S = {}>, where
+ * P and S correspond to Props and State, but CP is a kind of mystery.
+ *
+ * The state is defined as Cache in types since it's used in multiple
+ * places within the project.
+ */
 export default class OrangeApp extends App<AppProps, {}, Cache> {
   constructor(props: AppProps) {
     super(props);
