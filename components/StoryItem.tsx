@@ -15,9 +15,9 @@ export const StoryItem = (props: Story) => <li>
     <a rel='author'>{props.by}</a>
   </Link>
 
-  <span className='separator'>|</span>
+  <Separator />
   <span>{props.score} fake internet points</span>
-  <span className='separator'>|</span>
+  <Separator />
   <Time timestamp={props.time} />
 
   <style jsx>
@@ -44,14 +44,23 @@ export const StoryItem = (props: Story) => <li>
       }
 
       .by { margin-right: 0.2rem; }
+    `}
+  </style>
+</li>;
 
-      .separator {
+
+const Separator = () => <>
+  <span>|</span>
+  <style jsx>
+    {`
+      span {
         margin: 0 0.5rem;
+        font: normal 0.8rem/1.5 sans-serif;
         color: #bf9a4966;
       }
     `}
   </style>
-</li>;
+</>;
 
 
 // "Ask HN" stories have no URL, point link to comments.
