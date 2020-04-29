@@ -6,7 +6,7 @@ import {StoryList} from '../components/StoryList';
 
 
 interface State {
-  'visibleStories': Story[];
+  visibleStories: Story[];
 };
 
 

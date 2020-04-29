@@ -5,7 +5,7 @@ import {StoryItem} from './StoryItem';
 
 
 interface Props {
-  'stories': Story[];
+  stories: Story[];
 }
 
 
