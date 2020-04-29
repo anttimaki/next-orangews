@@ -2,7 +2,7 @@ import React from 'react';
 
 
 interface Props {
-  'timestamp': number;
+  timestamp: number;
 }
 
 

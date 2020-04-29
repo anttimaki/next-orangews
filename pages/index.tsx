@@ -3,10 +3,13 @@ import React from 'react'
 import {CacheContext} from './_app';
 import {Story} from '../types';
 import {StoryList} from '../components/StoryList';
+import {Button} from '../components/Button';
 
 
 interface State {
-  'visibleStories': Story[];
+  loadingMore: boolean;
+  visibleBlocks: number;
+  visibleStories: Story[];
 };
 
 
@@ -16,7 +19,15 @@ export default class Index extends React.Component<{}, State> {
 
   constructor(props: any) {
     super(props);
-    this.state = {'visibleStories': []};
+
+    this.state = {
+      'loadingMore': false,
+      'visibleBlocks': 1,
+      'visibleStories': []
+    };
+
+    this.showMore = this.showMore.bind(this);
+    this.getMoreStories = this.getMoreStories.bind(this);
   }
 
   /**
@@ -66,11 +77,13 @@ export default class Index extends React.Component<{}, State> {
     const url = 'https://hacker-news.firebaseio.com/v0/beststories.json';
     const response = await fetch(url);
     const bestStories = await response.json();
-    const itemsPerPage = 20;
+    const itemsPerBlock = 20;
+    const lastIndex = this.state.visibleBlocks * itemsPerBlock;
+    const firstIndex = lastIndex - itemsPerBlock;
 
     // Gather all the loadStory promises into an array so they are
     // executed in paraller.
-    const loadingPromises = bestStories.slice(0, itemsPerPage).map(
+    const loadingPromises = bestStories.slice(firstIndex, lastIndex).map(
       (storyId: number) => {
         const cached = this.context.storyCache[storyId];
         return typeof cached === 'undefined' ?  this.loadStory(storyId) : cached;
@@ -98,13 +111,28 @@ export default class Index extends React.Component<{}, State> {
     return story;
   }
 
-  async componentDidMount() {
+  // Load more stories from API and update them to local Component state
+  // and application level cache.
+  async getMoreStories() {
     const stories = await this.loadStories();
 
     this.setState(
-      {'visibleStories': stories},
+      {'loadingMore': false, 'visibleStories': stories},
       this.context.updateStoryCache(stories)
     );
+  }
+
+  showMore() {
+    const state = {
+      'loadingMore': true,
+      'visibleBlocks': this.state.visibleBlocks + 1
+    };
+
+    this.setState(state, this.getMoreStories);
+  }
+
+  componentDidMount() {
+    this.getMoreStories();
   }
 
   render() {
@@ -112,6 +140,11 @@ export default class Index extends React.Component<{}, State> {
       return <h2 id='loading'>Loading...</h2>;
     }
 
-    return <StoryList stories={this.state.visibleStories} />;
+    return <>
+      <StoryList stories={this.state.visibleStories} />
+      <Button onClick={this.showMore} loading={this.state.loadingMore}>
+        Show more
+      </Button>
+    </>;
   }
 };

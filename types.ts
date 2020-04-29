@@ -1,9 +1,9 @@
 // User account at Hackernews.
 export interface Author {
-  'id': string;
-  'karma': number;
-  'created': number;
-  'submitted': number[];
+  id: string;
+  karma: number;
+  created: number;
+  submitted: number[];
 };
 
 
@@ -15,12 +15,12 @@ export interface AuthorCache {
 
 // News story from Hackernews.
 export interface Story {
-  'by': string;
-  'id': number;
-  'score': number;
-  'time': number;
-  'title': string;
-  'url': string;
+  by: string;
+  id: number;
+  score: number;
+  time: number;
+  title: string;
+  url?: string;
 };
 
 
@@ -33,8 +33,8 @@ export interface StoryCache {
 // Combination of subcaches. Also used as a state interface for _app
 // since the context provider also conforms to this signature.
 export interface Cache {
-  'authorCache': AuthorCache;
-  'storyCache': StoryCache;
-  'updateAuthorCache': (author: Author) => void;
-  'updateStoryCache': (stories: Story[]) => void;
+  authorCache: AuthorCache;
+  storyCache: StoryCache;
+  updateAuthorCache: (author: Author) => void;
+  updateStoryCache: (stories: Story[]) => void;
 }
