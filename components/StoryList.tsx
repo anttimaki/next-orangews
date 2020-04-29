@@ -17,6 +17,7 @@ export const StoryList = (props: Props) => <ol>
       ol {
         list-style: none;
         padding-left: 0;
+        margin-bottom: 0;
       }
     `}
   </style>
