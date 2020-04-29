@@ -20,7 +20,7 @@ export interface Story {
   score: number;
   time: number;
   title: string;
-  url: string;
+  url?: string;
 };
 
 
