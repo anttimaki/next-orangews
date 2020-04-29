@@ -15,12 +15,14 @@ export const StoryItem = (props: Story) => <li>
     <a rel='author'>{props.by}</a>
   </Link>
 
+  <Comments {...props} />
+
   <Separator />
   <span>{props.score} fake internet points</span>
   <Separator />
   <Time timestamp={props.time} />
 
-  <style jsx>
+  <style jsx global>
     {`
       li { padding: 1rem 2rem; }
       li:nth-of-type(2n) { background-color: #383838; }
@@ -47,6 +49,23 @@ export const StoryItem = (props: Story) => <li>
     `}
   </style>
 </li>;
+
+
+const Comments = (props: Story) => {
+  // If story has no URL, the main link already points to comments.
+  if (typeof props.url === 'undefined') {
+    return null;
+  }
+
+  // Hack for getting correct URL from getUrl...
+  const story_ = {...props};
+  delete story_.url;
+
+  return <>
+    <Separator />
+    <a href={getUrl(story_)} target='_blank' rel='noopener'>Comments</a>
+  </>;
+}
 
 
 const Separator = () => <>
