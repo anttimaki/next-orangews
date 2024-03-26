@@ -11,7 +11,7 @@ export const StoryItem = (props: Story) => <li>
   </h2>
 
   <span className='by'>{'By'}</span>
-  <Link href="/author/[name]/" as={`/author/${props.by}/`}>
+  <Link legacyBehavior href="/author/[name]/" as={`/author/${props.by}/`}>
     <a rel='author'>{props.by}</a>
   </Link>
 

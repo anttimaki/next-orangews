@@ -1,10 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
+import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-import {CacheContext} from '../_app';
-import {Author, Cache} from '../../types';
-import {Time} from '../../components/Time';
-
+import { CacheContext } from "../_app";
+import { Author, Cache } from "../../types";
+import { Time } from "../../components/Time";
 
 /**
  * useRouter() can be used to access URL and query parameters. However,
@@ -22,12 +21,12 @@ export default () => {
   let authorName = useRouter().query.name;
   authorName = Array.isArray(authorName) ? authorName[0] : authorName;
 
-  const [author, setAuthor] = useState<Author|null>(null);
+  const [author, setAuthor] = useState<Author | null>(null);
   const cache: Cache = useContext(CacheContext);
 
   useEffect(() => {
     if (author !== null) {
-      return;  // Information already loaded.
+      return; // Information already loaded.
     }
 
     // We can't use async function directly with useEffect, since
@@ -37,7 +36,7 @@ export default () => {
     (async () => {
       let authorData;
 
-      if (typeof cache.authorCache[authorName as string] === 'undefined') {
+      if (typeof cache.authorCache[authorName as string] === "undefined") {
         const url = `https://hacker-news.firebaseio.com/v0/user/${authorName}.json`;
         const response = await fetch(url);
         authorData = await response.json();
@@ -56,47 +55,53 @@ export default () => {
   });
 
   if (author === null) {
-    return <h2 id='loading'>Loading...</h2>;
+    return <h2 id="loading">Loading...</h2>;
   }
 
-  return <>
-    <section>
-      <h2>{author.id}</h2>
-      <dl>
-        <dt>Registered:</dt>
-        <dd>
-          <Time timestamp={author.created} />
-        </dd>
-        <dt>Fake internet points:</dt>
-        <dd>{author.karma}</dd>
-        <dt>Submitted interactions:</dt>
-        <dd>{author.submitted.length}</dd>
-      </dl>
-    </section>
+  return (
+    <>
+      <section>
+        <h2>{author.id}</h2>
+        <dl>
+          <dt>Registered:</dt>
+          <dd>
+            <Time timestamp={author.created} />
+          </dd>
+          <dt>Fake internet points:</dt>
+          <dd>{author.karma}</dd>
+          <dt>Submitted interactions:</dt>
+          <dd>{author.submitted.length}</dd>
+        </dl>
+      </section>
 
-    <style jsx>
-      {`
-        section { padding: 0.5rem 1rem; }
+      <style jsx>
+        {`
+          section {
+            padding: 0.5rem 1rem;
+          }
 
-        h2 {
-          margin: 0;
-          font: normal 24px/1.5 sans-serif;
-          color: #de9a07;
-        }
+          h2 {
+            margin: 0;
+            font: normal 24px/1.5 sans-serif;
+            color: #de9a07;
+          }
 
-        dl {
-          font: normal 14px/1.5 sans-serif;
-          color: #bf9a49;
-          display: flex;
-          flex-flow: row wrap;
-          max-width: 400px;
-        }
-        dt { flex-basis: 40%; }
-        dd {
-          flex-basis: 60%;
-          margin: 0;
-        }
-      `}
-    </style>
-  </>;
+          dl {
+            font: normal 14px/1.5 sans-serif;
+            color: #bf9a49;
+            display: flex;
+            flex-flow: row wrap;
+            max-width: 400px;
+          }
+          dt {
+            flex-basis: 40%;
+          }
+          dd {
+            flex-basis: 60%;
+            margin: 0;
+          }
+        `}
+      </style>
+    </>
+  );
 };

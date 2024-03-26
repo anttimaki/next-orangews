@@ -13,13 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
-    "next": "^9.3.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "next": "^14.1.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^13.11.1",
+    "@types/node": "^13.13.52",
     "@types/react": "^16.9.33",
-    "typescript": "^3.8.3"
+    "typescript": "5.4"
   }
 }
